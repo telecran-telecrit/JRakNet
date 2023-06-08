@@ -9,9 +9,6 @@ plugins {
 
 repositories {
     mavenLocal()
-    maven {
-        url = uri("https://raw.github.com/JRakNet/WaifUPnP/master/")
-    }
 
     maven {
         url = uri("https://repo.maven.apache.org/maven2/")
@@ -22,7 +19,6 @@ dependencies {
     api("org.apache.logging.log4j:log4j-api:2.17.1")
     api("org.apache.logging.log4j:log4j-core:2.17.1")
     api("io.netty:netty-handler:4.1.49.Final")
-    api("com.dosse:upnp:1.1")
 }
 
 group = "com.whirvis"
@@ -32,7 +28,7 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 java {
     withSourcesJar()
-    withJavadocJar()
+//    withJavadocJar()
 }
 
 publishing {
