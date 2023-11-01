@@ -81,7 +81,7 @@ public final class RakNetTest {
 	/**
 	 * The address of the LifeBoat Survival Games server.
 	 */
-	public static final InetSocketAddress LIFEBOAT_SURVIVAL_GAMES_ADDRESS = new InetSocketAddress("sg.lbsg.net",
+	public static final InetSocketAddress LIFEBOAT_SURVIVAL_GAMES_ADDRESS = new InetSocketAddress("127.0.0.1",
 			MINECRAFT_DEFAULT_PORT);
 
 	private RakNetTest() {

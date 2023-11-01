@@ -674,23 +674,23 @@ public class RakNetServer implements RakNetServerListener {
 
 	/**
 	 * Forwards the port that the server is running on.
-	 * 
+	 *
 	 * @return the result of the port forward attempt.
 	 * @see RakNet#forwardPort(int)
 	 */
-	public final RakNet.UPnPResult forwardPort() {
-		return RakNet.forwardPort(this.getPort());
-	}
+//	public final RakNet.UPnPResult forwardPort() {
+//		return RakNet.forwardPort(this.getPort());
+//	}
 
 	/**
 	 * Closes the port that the server is running on.
-	 * 
+	 *
 	 * @return the result of the port close attempt.
 	 * @see RakNet#closePort(int)
 	 */
-	public final RakNet.UPnPResult closePort() {
-		return RakNet.closePort(this.getPort());
-	}
+//	public final RakNet.UPnPResult closePort() {
+//		return RakNet.closePort(this.getPort());
+//	}
 
 	/**
 	 * Returns the server's networking protocol version.

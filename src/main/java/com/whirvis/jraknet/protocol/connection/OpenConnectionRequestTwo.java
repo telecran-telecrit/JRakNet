@@ -107,8 +107,8 @@ public final class OpenConnectionRequestTwo extends RakNetPacket implements Fail
 			this.writeAddress(serverAddress);
 			this.writeUnsignedShort(maximumTransferUnit);
 			this.writeLong(clientGuid);
-			this.writeConnectionType(connectionType);
-		} catch (UnknownHostException | RakNetException e) {
+//			this.writeConnectionType(connectionType);
+		} catch (UnknownHostException /*| RakNetException*/ e) {
 			this.magic = false;
 			this.serverAddress = null;
 			this.maximumTransferUnit = 0;
@@ -126,8 +126,8 @@ public final class OpenConnectionRequestTwo extends RakNetPacket implements Fail
 			this.serverAddress = this.readAddress();
 			this.maximumTransferUnit = this.readUnsignedShort();
 			this.clientGuid = this.readLong();
-			this.connectionType = this.readConnectionType();
-		} catch (UnknownHostException | RakNetException e) {
+//			this.connectionType = this.readConnectionType();
+		} catch (UnknownHostException /*| RakNetException*/ e) {
 			this.magic = false;
 			this.serverAddress = null;
 			this.maximumTransferUnit = 0;

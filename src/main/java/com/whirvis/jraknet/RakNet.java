@@ -43,7 +43,6 @@ import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.dosse.upnp.UPnP;
 import com.whirvis.jraknet.identifier.Identifier;
 import com.whirvis.jraknet.protocol.connection.IncompatibleProtocolVersion;
 import com.whirvis.jraknet.protocol.connection.OpenConnectionRequestOne;
@@ -199,12 +198,12 @@ public final class RakNet {
 	/**
 	 * The current supported server network protocol.
 	 */
-	public static final int SERVER_NETWORK_PROTOCOL = 10;
+	public static final int SERVER_NETWORK_PROTOCOL = 11;
 
 	/**
 	 * The current supported client network protocol.
 	 */
-	public static final int CLIENT_NETWORK_PROTOCOL = 10;
+	public static final int CLIENT_NETWORK_PROTOCOL = 11;
 
 	/**
 	 * The minimum maximum transfer unit size.
@@ -466,94 +465,6 @@ public final class RakNet {
 			printedStackTrace = printedStackTrace.substring(0, printedStackTrace.length() - 2);
 		}
 		return printedStackTrace;
-	}
-
-	/**
-	 * Forwards the specified UDP port via
-	 * <a href="https://en.wikipedia.org/wiki/Universal_Plug_and_Play">UPnP</a>.
-	 * <p>
-	 * In order for this method to work,
-	 * <a href="https://en.wikipedia.org/wiki/Universal_Plug_and_Play">UPnP</a>
-	 * for the router must be enabled. The way to enable this varies depending
-	 * on the router. There is no guarantee this method will successfully
-	 * forward the specified UDP port; as it is completely dependent on the
-	 * gateway (the router in this case) to do so.
-	 * <p>
-	 * This is not a blocking method. However, the code required to accomplish
-	 * the task can up to three seconds to execute. As a result, it is
-	 * encapsulated within another thread so as to prevent unnecessary blocking.
-	 * If one wishes to get the result of the code, use the
-	 * {@link UPnPResult#wasSuccessful()} method found inside of
-	 * {@link UPnPResult}. A callback for when the task finishes can also be set
-	 * using the {@link UPnPResult#onFinish(Runnable)} method.
-	 * 
-	 * @param port
-	 *            the port to forward.
-	 * @return the result of the execution.
-	 * @throws IllegalArgumentException
-	 *             if the port is not within the range of <code>0-65535</code>.
-	 */
-	public static synchronized UPnPResult forwardPort(int port) throws IllegalArgumentException {
-		if (port < 0x0000 || port > 0xFFFF) {
-			throw new IllegalArgumentException("Port must be in between 0-65535");
-		}
-		UPnPResult result = new UPnPResult() {
-			@Override
-			public void run() {
-				this.setName("jraknet-port-forwarder-" + port);
-				this.success = UPnP.openPortUDP(port);
-				this.finished = true;
-				if (runnable != null) {
-					runnable.run();
-				}
-			}
-		};
-		result.start();
-		return result;
-	}
-
-	/**
-	 * Closes the specified UDP port via
-	 * <a href="https://en.wikipedia.org/wiki/Universal_Plug_and_Play">UPnP</a>.
-	 * <p>
-	 * In order for this method to work,
-	 * <a href="https://en.wikipedia.org/wiki/Universal_Plug_and_Play">UPnP</a>
-	 * for the router must be enabled. The way to enable this varies depending
-	 * on the router. There is no guarantee this method will successfully close
-	 * the specified UDP port; as it is completely dependent on the gateway (the
-	 * router in this case) to do so.
-	 * <p>
-	 * This is not a blocking method. However the code required to accomplish
-	 * the task can up to three seconds to execute. As a result, it is
-	 * encapsulated within another thread so as to prevent unnecessary blocking.
-	 * If one wishes to get the result of the code, use the
-	 * {@link UPnPResult#wasSuccessful()} method found inside of
-	 * {@link UPnPResult}. A callback for when the task finishes can also be set
-	 * using the {@link UPnPResult#onFinish(Runnable)} method.
-	 * 
-	 * @param port
-	 *            the port to close.
-	 * @return the result of the execution.
-	 * @throws IllegalArgumentException
-	 *             if the port is not within the range of <code>0-65535</code>.
-	 */
-	public static synchronized UPnPResult closePort(int port) throws IllegalArgumentException {
-		if (port < 0x0000 || port > 0xFFFF) {
-			throw new IllegalArgumentException("Port must be in between 0-65535");
-		}
-		UPnPResult result = new UPnPResult() {
-			@Override
-			public void run() {
-				this.setName("jraknet-port-closer-" + port);
-				this.success = UPnP.closePortUDP(port);
-				this.finished = true;
-				if (runnable != null) {
-					runnable.run();
-				}
-			}
-		};
-		result.start();
-		return result;
 	}
 
 	/**

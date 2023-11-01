@@ -70,3 +70,4 @@ nb-configuration.xml
 .factorypath
 .vscode/launch.json
 .vscode/settings.json
+!/gradle/wrapper/gradle-wrapper.jar
