@@ -49,6 +49,11 @@ public class SampleServer {
                 System.out.println("Client from address " + address
                                 + " has disconnected from the server for reason \"" + reason + "\"");
             }
+            
+            @Override
+            public void onPing(RakNetServer server, ServerPing ping) {
+                System.out.println("Client ping" + ping + " for the server");
+            }
 
             // Packet received
             @Override
